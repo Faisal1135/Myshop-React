@@ -21,10 +21,10 @@ const reducer = (
       return { loading: true, data: [] };
 
     case ActionType.SEARCH_REPOSITORIES_SUCCESS:
-      return { loading: true, data: action.payload };
+      return { loading: false, data: action.payload };
 
     case ActionType.SEARCH_REPOSITORIES_ERROR:
-      return { loading: true, data: [], error: action.payload };
+      return { loading: false, data: [], error: action.payload };
 
     default:
       return state;

@@ -10,19 +10,18 @@ export const searchRepositorie = (term: string) => {
     });
 
     try {
-      const { data } = await axios.get(
-        "https://registry.npmjs.org/-/v1/search",
-        {
-          params: {
-            text: term,
-          },
-        }
-      );
-      console.log(data);
+      const { data } = await axios.get<{
+        objects: [{ package: { name: string } }];
+      }>("https://registry.npmjs.org/-/v1/search", {
+        params: {
+          text: term,
+        },
+      });
+      console.log(data.objects[0].package.name);
 
       dispatch({
         type: ActionType.SEARCH_REPOSITORIES_SUCCESS,
-        payload: data,
+        payload: data.objects.map((p) => p.package.name),
       });
     } catch (error: any) {
       dispatch({
